@@ -5,8 +5,8 @@
 Веб-сервер на Django, отдающий JSON с количеством дней до Нового года.
 
 ### Стек
-- Python 3.12
-- Django 5.x
+- Python 3.14.8
+- Django 6.x
 - Docker
 
 ### Запуск через Docker
