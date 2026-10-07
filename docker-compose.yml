@@ -1,7 +1,44 @@
 services:
+  db:
+    image: postgres:16
+    container_name: wp_lab2_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - wp_lab2_postgres:/var/lib/postgresql/data
+    networks:
+      - wp_lab2_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   app:
     build: .
-    container_name: wp_lab1_app
+    container_name: wp_lab2_app
+    restart: unless-stopped
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: db
+      DB_PORT: 5432
     ports:
       - "8000:8000"
-    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - wp_lab2_network
+
+volumes:
+  wp_lab2_postgres:
+
+networks:
+  wp_lab2_network:
