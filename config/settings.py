@@ -139,6 +139,6 @@ MAILERS = {
 }
 # Django REST Framework
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'library.pagination.StandardPagination',
     'PAGE_SIZE': 10,
 }
