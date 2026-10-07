@@ -1,8 +1,10 @@
+import uuid
 from django.db import models
 
 
 class Author(models.Model):
     """Автор книги."""
+    uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     name = models.CharField(max_length=255, verbose_name="Имя")
     birth_year = models.IntegerField(null=True, blank=True, verbose_name="Год рождения")
     country = models.CharField(max_length=100, blank=True, verbose_name="Страна")
@@ -21,6 +23,7 @@ class Author(models.Model):
 
 class Genre(models.Model):
     """Жанр книги."""
+    uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     name = models.CharField(max_length=100, unique=True, verbose_name="Название")
     description = models.TextField(blank=True, verbose_name="Описание")
     created_at = models.DateTimeField(auto_now_add=True)
@@ -44,6 +47,7 @@ class Book(models.Model):
         ('archived', 'В архиве'),
     ]
 
+    uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     title = models.CharField(max_length=255, verbose_name="Название")
     author = models.ForeignKey(
         Author,
