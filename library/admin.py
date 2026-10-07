@@ -18,6 +18,6 @@ class GenreAdmin(admin.ModelAdmin):
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'genre', 'year', 'status', 'deleted_at')
-    list_filter = ('status', 'genre')
+    list_filter = ('status', 'genre', 'deleted_at')
     search_fields = ('title', 'author__name')
     raw_id_fields = ('author',)
